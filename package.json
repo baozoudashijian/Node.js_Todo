@@ -6,6 +6,7 @@
   "author": "Roger Zhang <1787009521@qq.com>",
   "license": "MIT",
   "dependencies": {
-    "commander": "^9.2.0"
+    "commander": "^9.2.0",
+    "inquirer": "^8.2.2"
   }
 }

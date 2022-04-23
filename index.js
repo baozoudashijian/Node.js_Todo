@@ -50,10 +50,7 @@ program
               res = [...JSON.parse(fileData), {content: str, done: false}]
           }
 
-          write(JSON.stringify(res)).then((msg) => {
-              console.log(msg)
-          })
-      })
+          write(JSON.stringify(res))
     
   });
 
@@ -66,6 +63,22 @@ program
             JSON.parse(fileData).map((task, index) => {
                 console.log(`${task.done ? '[✔]' : '[✘]'} ${index + 1}.${task.content}`)
             })
+          }
+      })
+    
+  });
+
+  program.command('remove')
+  .description('Remove a task')
+  .argument('<number>', 'Task index')
+  .action((i) => {
+      read().then((data) => {
+          let fileData = data.toString()
+          if(fileData) {
+            let res = JSON.parse(fileData).filter((task, index) => {
+                return index != i - 1
+            })
+            write(JSON.stringify(res))
           }
       })
     
