@@ -1,8 +1,9 @@
+#!/usr/bin/env node
+
 const { create, cat, remove, mark, edit } = require('./index')
 
 const { Command } = require('commander');
 const program = new Command();
-
 
 // 使用说明
 program
