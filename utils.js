@@ -3,12 +3,12 @@ const path = require('path')
 const fs = require('fs')
 
 const homeDir = os.homedir()
-let fileOfTodo = path.join(homeDir, '.todo')
+let DBOfTodo = path.join(homeDir, '.todo')
 
 module.exports = {
     read() {
         return new Promise((resolve, reject) => {
-            fs.readFile(fileOfTodo, { flag: 'a+' }, (err, data) => {
+            fs.readFile(DBOfTodo, { flag: 'a+' }, (err, data) => {
                 if (err) {
                     reject(err)
                 }
@@ -18,12 +18,19 @@ module.exports = {
     },
     write(data) {
         return new Promise((resolve, reject) => {
-            fs.writeFile(fileOfTodo, data, (err) => {
+            fs.writeFile(DBOfTodo, data, (err) => {
                 if (err) {
                     reject(err)
                 }
                 resolve('Task created successfully')
             })
         })
+    },
+    toJson(str) {
+        return JSON.parse(str)
+    },
+    toStr(json) {
+    
+        return JSON.stringify(json)
     }
 }

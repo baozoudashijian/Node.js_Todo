@@ -1,39 +1,16 @@
 const { read, write } = require('./utils')
+const {  createHandler, catHandler, removeHandler } = require('./model')
 const inquirer = require('inquirer');
 
 module.exports = {
     create(str) {
-        read().then((data) => {
-            let res
-            let fileData = data.toString()
-            res = [{ content: str, done: false }]
-            if (fileData) {
-                res = [...JSON.parse(fileData), { content: str, done: false }]
-            }
-
-            write(JSON.stringify(res))
-        })
+        createHandler(str)
     },
     cat() {
-        read().then((data) => {
-            let fileData = data.toString()
-            if (fileData) {
-                JSON.parse(fileData).map((task, index) => {
-                    console.log(`${task.done ? '[✔]' : '[✘]'} ${index + 1}.${task.content}`)
-                })
-            }
-        })
+        catHandler()
     },
-    remove(i) {
-        read().then((data) => {
-            let fileData = data.toString()
-            if (fileData) {
-                let res = JSON.parse(fileData).filter((task, index) => {
-                    return index != i - 1
-                })
-                write(JSON.stringify(res))
-            }
-        })
+    remove(index) {
+        removeHandler(index)
     },
     mark() {
         let selectOptions = []
